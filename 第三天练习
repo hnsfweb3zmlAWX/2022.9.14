@@ -1,0 +1,159 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include<stdio.h>
+#include<string.h>
+
+//定义(创建)结构体
+struct BOOK
+{
+	char name[20];
+	char author[10];
+	short price;
+};
+
+int main()
+{
+	int a = 0;
+	//4个字节，32比特位
+	int b = ~a;
+	//b为有符号的整形
+	//~：按(二进制位)位取反
+	//负数在计算机中存储时，存储的是二进制补码
+	//源码符号不变各位按位取反得到对应的反码，反码加一得到对应的补码
+	printf("b = %d\n", b);
+	//单目操作符-++操作：
+	int c = 10;
+	int d = c++;
+	//后置++：先使用再++
+	int e = ++c;
+	//前置++：先++再使用
+	printf("c = %d AND d = %d e = %d\n", c, d, e);
+
+	//单目操作符-强制类型转换操作：
+	int f = 3.14;
+	//得到警告"从double转到int可能丢失数据"
+	printf("f = %d\n", f);
+	int g = (int)3.14;
+	printf("g = %d\n", g);
+
+	//关系操作符：> >= < <= !=(用于测试"不相等") ==(用于测试"相等")
+
+	//逻辑操作符：&&逻辑与 ||逻辑或
+	int h = 0;
+	int i = 0;
+	printf("Please enter the number of h ：");
+	scanf("%d", &h);
+	printf("Please enter the number of i ：");
+	scanf("%d", &i);
+	//逻辑与：h若为真，且i也为真，则j为真，即为1(否则为0)
+	int j = h && i;
+	if (j == 0)
+	{
+		printf("j = 0 假\n");
+	}
+	else
+	{
+		printf("j = 1 真\n");
+	}
+
+	//条件操作符(三目操作符)：exp1?exp2:exp3：首先判断表达式1，若真则执行表达式2，为假则执行表达式3
+	//例如(比较两数大小操作)：
+	int k = 0;
+	int l = 0;
+	printf("Please enter the number of k ：");
+	scanf("%d", &k);
+	printf("Please enter the number of l ：");
+	scanf("%d", &l);
+	int MAX = (k > l ? k : l);
+	printf("MAX = %d\n", MAX);
+
+	//逗号表达式：exp1,exp2,exp3,exp4...expn
+
+	//下标引用操作符[]、函数调用操作符()和结构成员. ->
+
+	//关键字：auto break case const continue default do enum extern for goto register signed sizeof static struct switch typedef union unsigned void volatile
+	//关键字为内置，无法自行创建，不能用作变量名
+
+	//typedef关键字(类型定义/重定义)：用于对函数进行重定义(重命名)
+	//static：修饰局部变量时，该局部变量生命周期变长(局部变量变为静态变量)，函数调用结束后变量不回收(static在不同位置含义不同)
+	//static：修饰全局变量时，该全局变量作用域变小(全局变量变为静态变量),只能在自己所在的源文件内部进行使用
+	//static：修饰函数时，改变了函数的链接属性(将外部链接属性变为内部链接属性)，实际使用规则规则与修饰全局变量相似
+	//extern：用于声明外部符号(必须将文件放在同一个项目文件包内，且源文件后缀必须相同)
+	//#define：定义常量和宏
+
+	//内存：以64位机器为例，表示有64根地址线(数据线)
+	int m = 10;
+	printf("Tne address of m is ：%p\n", &m);
+	printf("The number of m is ： %d\n", m);
+	//&：取地址操作符 %p：以地址格式打印(十六进制)
+
+	//指针变量：用于存放地址的变量(取址运算)
+	int* n = &m;
+	printf("The address of m is ：%p\n", n);
+	printf("The value of m is ： %d\n", m);
+	*n = 20;
+	//*(解引用操作符)：对变量进行解引用操作(取值运算)
+	printf("The address of m is ：%p\n", n);
+	printf("The value of m has changed to ：%d\n", m);
+
+	char o = 'a';
+	printf("The address of o is ：%p\n", &o);
+	printf("The value of o is ：%c\n", o);
+	char* p = &o;
+	printf("The address of o is ：%p\n", p);
+	printf("The value of o is ：%c\n", o);
+	*p = 'A';
+	printf("The address of o is ：%p\n", p);
+	printf("The value of o has changed to ：%c\n", o);
+
+	//32位系统一个指针变量的大小是四个字节，64位系统中则为八个字节
+	//指针变量的大小：
+	printf("The size of int* is ：%d\n", sizeof(int*));
+	printf("The size of char* is ：%d\n", sizeof(char*));
+	printf("The size of short* is ：%d\n", sizeof(short*));
+	printf("The size of float* is ：%d\n", sizeof(float*));
+	printf("The size of double* is ：%d\n", sizeof(double*));
+
+	//结构体：使C语言具有描述复杂类型的能力
+	//利用结构体类型创建一个该类型的结构体变量：
+	//结构体的初始化：
+	struct BOOK b1 = { "C语言程序设计","Stephen",45 };
+	printf("书名 ：%s\n", b1.name);
+	printf("作者 ：%s\n", b1.author);
+	printf("价格 ：%d 元\n", b1.price);
+
+	//修改结构体变量中的数据：
+	printf("Please enter the price you want to change ：");
+	short q = 0;
+	scanf("%d", &q);
+	b1.price = q;
+	printf("The  information has changed to ：");
+	//.(点操作符)：结构体变量.成员
+	printf("书名 ：%s\n", b1.name);
+	printf("作者 ：%s\n", b1.author);
+	printf("价格 ：%d 元\n", b1.price);
+
+	//修改结构体中的字符串：
+	printf("Please enter the name you want to change ：");
+	char r[20] = { 0 };
+	scanf("%s", &r);
+	strcpy(b1.name, r);
+	//strcpy：string copy，即字符串拷贝，用法为strcpy(目的地,拷贝内容)，所需库函数为#include<string.h>
+	printf("The final information of the book is ：");
+	printf("书名 ：%s\n", b1.name);
+	printf("作者 ：%s\n", b1.author);
+	printf("价格 ：%d 元\n", b1.price);
+
+	//利用指针打印结构体变量：
+	struct BOOK* s = &b1;
+	printf("书名 ：%s\n", (*s).name);
+	printf("作者 ：%s\n", (*s).author);
+	printf("价格 ：%d 元\n", (*s).price);
+	
+	//->(箭头操作符)：结构体指针->成员
+	printf("书名 ：%s\n", s->name);
+	printf("作者 ：%s\n", s->author);
+	printf("价格 ：%d 元\n", s->price);
+
+	return 0;
+}
